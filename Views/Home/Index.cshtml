@@ -436,7 +436,13 @@
                         <i class="fas fa-gamepad me-2"></i>Manual Controls
                     </h5>
                     
-
+                    <div class="mb-3">
+                        <label for="servoSlider" class="form-label">Servo Position: <span id="sliderValue">0</span>°</label>
+                        <input type="range" class="form-range servo-slider" min="0" max="180" value="0" id="servoSlider">
+                        <button class="btn btn-primary w-100" onclick="moveServo()">
+                            <i class="fas fa-paper-plane me-1"></i>Move Servo
+                        </button>
+                    </div>
                     
                     <div class="d-grid gap-2">
                         <button class="btn btn-warning" onclick="toggleSystem()">
@@ -572,6 +578,38 @@
 
         function showProximityAlert(distance) {
             showAlert(`PROXIMITY ALERT: Object detected ${distance}cm from sensor!`, 'warning');
+        }
+
+        async function moveServo() {
+            const position = document.getElementById('servoSlider').value;
+            const button = event.target;
+            
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Moving...';
+            
+            try {
+                const response = await fetch('/api/RainSystem/servo/move', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ position: parseInt(position) })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showAlert('Servo moved successfully!', 'success');
+                    setTimeout(refreshData, 1000);
+                } else {
+                    showAlert('Failed to move servo', 'danger');
+                }
+            } catch (error) {
+                showAlert('Error communicating with system', 'danger');
+            } finally {
+                button.disabled = false;
+                button.innerHTML = '<i class="fas fa-paper-plane me-1"></i>Move Servo';
+            }
         }
 
         function updateConnectionStatus(online) {

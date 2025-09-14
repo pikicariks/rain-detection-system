@@ -67,6 +67,21 @@ namespace RainDetectionApp.Controllers
             return Ok(commands);
         }
 
+        [HttpPost("servo/move")]
+        public async Task<IActionResult> MoveServo([FromBody] ServoMoveRequest request)
+        {
+            if (request.Position < 0 || request.Position > 180)
+            {
+                return BadRequest(new { message = "Position must be between 0 and 180 degrees" });
+            }
+            
+            var success = await _rainSystemService.ExecuteCommandAsync("servo_move", new ServoMoveCommand 
+            { 
+                Position = request.Position 
+            });
+            
+            return Ok(new { success, message = $"Servo command sent: {request.Position}°" });
+        }
         
 
 [HttpPost("proximity/acknowledge")]

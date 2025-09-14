@@ -205,6 +205,23 @@ void setupWebRoutes() {
       server.send(400, "application/json", "{\"success\": false, \"message\": \"Missing position parameter\"}");
     }
   });
+
+  server.on("/api/servo/move", HTTP_POST, []() {
+    if (server.hasArg("position")) {
+      int position = server.arg("position").toInt();
+      if (position >= 0 && position <= 180) {
+        myServo.write(position);
+        systemState.status = "Manual servo control: " + String(position) + "°";
+        logEvent("manual_servo", systemState.currentAnalogValue, systemState.isRaining);
+        
+        server.send(200, "application/json", "{\"success\": true, \"position\": " + String(position) + "}");
+      } else {
+        server.send(400, "application/json", "{\"success\": false, \"message\": \"Invalid position (0-180)\"}");
+      }
+    } else {
+      server.send(400, "application/json", "{\"success\": false, \"message\": \"Missing position parameter\"}");
+    }
+  });
   
   server.on("/api/system/toggle", HTTP_POST, []() {
     systemState.systemEnabled = !systemState.systemEnabled;
