@@ -1,0 +1,324 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.status-card {
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.status-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.device-online {
+    border-left: 4px solid #28a745;
+}
+
+.device-offline {
+    border-left: 4px solid #dc3545;
+}
+
+.rain-detected {
+    border-left: 4px solid #007bff;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+}
+
+.system-dry {
+    border-left: 4px solid #ffc107;
+    background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+}
+
+.control-panel {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.servo-slider {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.log-item {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border-left: 4px solid #dee2e6;
+}
+
+.log-rain-start {
+    border-left-color: #007bff;
+    background-color: #e3f2fd;
+}
+
+.log-rain-stop {
+    border-left-color: #ffc107;
+    background-color: #fff8e1;
+}
+
+.log-manual {
+    border-left-color: #28a745;
+    background-color: #e8f5e8;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.status-online {
+    background-color: #28a745;
+    animation: pulse 2s infinite;
+}
+
+.status-offline {
+    background-color: #dc3545;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.activity-log-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-right: -10px;
+}
+
+.activity-log-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.activity-log-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.activity-log-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.activity-log-container::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+.activity-log-wrapper {
+    position: relative;
+}
+
+.activity-log-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: linear-gradient(transparent, white);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.activity-log-wrapper.has-scroll::after {
+    opacity: 1;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .control-panel {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .status-card .card-body {
+        padding: 15px;
+    }
+    
+    .status-card h4 {
+        font-size: 1.1rem;
+    }
+    
+    .status-card h6 {
+        font-size: 0.85rem;
+    }
+    
+    .status-card .fa-2x {
+        font-size: 1.5em !important;
+    }
+    
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .form-control, .form-range {
+        font-size: 0.9rem;
+    }
+    
+    .log-item {
+        padding: 8px;
+        font-size: 0.85rem;
+    }
+    
+    .log-item strong {
+        font-size: 0.8rem;
+    }
+    
+    .log-item .text-muted {
+        font-size: 0.75rem;
+    }
+    
+    .activity-log-container {
+        max-height: 300px;
+        padding-right: 5px;
+        margin-right: -5px;
+    }
+    
+    .servo-slider {
+        margin: 15px 0;
+    }
+    
+    h5 {
+        font-size: 1.1rem;
+    }
+    
+    .form-label {
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .row.mb-4 {
+        margin-bottom: 1.5rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    
+    .control-panel {
+        padding: 12px;
+    }
+    
+    .status-card .card-body {
+        padding: 12px;
+    }
+    
+    .status-card h4 {
+        font-size: 1rem;
+    }
+    
+    .status-card h6 {
+        font-size: 0.8rem;
+    }
+    
+    .btn {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .log-item {
+        padding: 6px;
+        margin: 3px 0;
+    }
+    
+    .log-item .d-flex {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    
+    .log-item small {
+        margin-top: 5px;
+        font-size: 0.7rem;
+    }
+    
+    .activity-log-container {
+        max-height: 250px;
+    }
+    
+    .navbar {
+        padding: 0.5rem 0;
+    }
+    
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    
+    #connectionStatus {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .form-control {
+        padding: 0.375rem 0.5rem;
+    }
+    
+    .col-6 {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .btn {
+        min-height: 44px;
+        touch-action: manipulation;
+    }
+    
+    .form-range {
+        height: 44px;
+        touch-action: manipulation;
+    }
+    
+    .form-control {
+        min-height: 44px;
+        touch-action: manipulation;
+    }
+    
+    .status-card {
+        touch-action: manipulation;
+    }
+}
+
+@media (max-width: 768px) {
+    .mt-4 {
+        margin-top: 1rem !important;
+    }
+    
+    .mb-3 {
+        margin-bottom: 1rem !important;
+    }
+    
+    .gap-2 {
+        gap: 0.75rem !important;
+    }
+    
+    .me-2 {
+        margin-right: 0.25rem !important;
+    }
+}
