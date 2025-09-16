@@ -1,4 +1,4 @@
-# Rain Detection System
+# Rain Detection System College Project
 
 A comprehensive IoT rain detection and automation system that monitors weather conditions and automatically controls servo motors for windows, awnings, or similar mechanisms.
 
